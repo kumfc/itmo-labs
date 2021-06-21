@@ -17,22 +17,22 @@ class EquationBuilder:
                    's3': z3.Real('s3'), 's4': z3.Real('s4')}
 
     def add_equation(self, s, params):
-        equation = {}
+        equation = []
         for i in range(len(params[0])):
             pi = params[0][i]
-            equation[pi] = []
+            equation.append([pi, []])
             for P in params[1 + i * 2]:
-                equation[pi].append([P])
+                equation[-1][1].append([P])
             for j in range(len(params[1 + i * 2])):
-                equation[pi][j].append(params[2 + i * 2][j])
+                equation[-1][1][j].append(params[2 + i * 2][j])
 
         self.equations.add(eval(self.__eq_to_str(s, equation)))
 
     def __eq_to_str(self, s, eq):
         string = f'self.sc["{s}"] == ('
-        for k, v in eq.items():
-            string += f'+{k}*('
-            for sub in v:
+        for v in eq:
+            string += f'+{v[0]}*('
+            for sub in v[1]:
                 string += f'+{sub[0][1]}*({sub[1]}+{self.y}*self.sc["{sub[0][0]}"])'
             string += ')'
         string += ')'
