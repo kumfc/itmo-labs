@@ -9,7 +9,7 @@ pip3 install z3-solver
 
 Переносим транскрипцию задания в текстовый файл как на картинке
 
-![](showcase.png)
+![](showcase_.png)
 
 Даем файлу название *example.txt* (или другое но понадобится *a little brain moves*)
 
